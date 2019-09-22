@@ -56,7 +56,25 @@ class App extends Component {
               const repoCount = search.repositoryCount
               const repoUnit = repoCount === 1 ? 'Repository' : 'Repositories'
               const title = `GitHub Rep Search Results - ${repoCount} ${repoUnit} `
-              return <h2>{title}</h2>
+              return (
+                <React.Fragment>
+                  <h2>{title}</h2>
+                  <ul>
+                    {
+                      search.edges.map(edge => {
+                        const node = edge.node
+
+                        return (
+                          <li key={node.id}>
+                            <a href={node.url} target="_blank" rel="noopener noreferrer">{node.name}</a>
+                          </li>
+                        )
+                      })
+                    }
+                  </ul>
+                </React.Fragment>
+              )
+              // TODO: 調査rel="noopener noreferrer"はtarget="_blank"とした際にセキュリティを高める為に記述するらしい。
             }
           }
         </Query>
